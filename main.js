@@ -30,12 +30,21 @@
 
 console.log('client-side only');
 
-catchBanner();
+catchBanner()
+    .then(response => {                             /* log message if it worked and if not we get an error */
+        console.log('it works');
+    })
+    .catch(error => {
+        console.log('error!');
+        console.error(error);
+    })
+    ;
 
-async function catchBanner(){
-    const response = await fetch('images/banner.jpg');
-    const blob = await response.blob();
-    document.getElementById('banner').src = URL.createObjectURL(blob);
+
+async function catchBanner(){                               /* async function that makes the fetch request */
+    const response = await fetch('images/banner.jpg');      /* it turns the body of what comes back in the HTTP repsonse into a blob */
+    const blob = await response.blob();         
+    document.getElementById('banner').src = URL.createObjectURL(blob);  /* it converts the blob into the format that the DOM element expects */
 }
 
 catchPalmtree();
